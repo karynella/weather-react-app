@@ -30,7 +30,7 @@ export default function searchEngine() {
             alt = "" / >
             <
             /p>{" "} <
-            /ul> <
+            /ul>{" "} <
             /div>
         );
     }
