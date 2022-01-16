@@ -8,6 +8,7 @@ export default function Form() {
 
   let form = (
     <div className="weatherApp">
+      <h1>Weather App</h1>
       <form autoComplete="off" onSubmit={handleSubmit}>
         <input
           id="formInput"

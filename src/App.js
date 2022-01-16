@@ -4,10 +4,16 @@ import Form from "./Form.js";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1> Weather App </h1>
-      </header>
       <Form />
+      <small>
+        <a
+          href="https://github.com/karynella/weather-react-app"
+          target="blank"
+          rel="nonreffer"
+        >
+          Open-source code
+        </a>
+      </small>
     </div>
   );
 }
