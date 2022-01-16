@@ -4,7 +4,34 @@ import axios from "axios";
 export default function Form() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
+
+  let form = (
+    <div className="weatherApp">
+      <form autoComplete="off" onSubmit={handleSubmit}>
+        <input
+          id="formInput"
+          autoCapitalize="words"
+          type="search"
+          placeholder="Type a location to search"
+          onChange={updateCity}
+          incremental="true"
+        />
+        <button type="submit"> Search </button>
+      </form>
+    </div>
+  );
+
+  function updateCity(event) {
+    setCity(event.target.value);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6988592e955ab4549707ca49836853a2&units=metric`;
+    axios.get(url).then(handleResponse);
+  }
 
   function handleResponse(response) {
     let icon = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
@@ -25,47 +52,14 @@ export default function Form() {
     );
   }
 
-  function updateCity(event) {
-    setCity(event.target.value);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6988592e955ab4549707ca49836853a2&units=metric`;
-    axios.get(url).then(handleResponse);
-  }
-
   if (loaded) {
     return (
-      <div className="weatherApp">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <input
-            id="formInput"
-            autoCapitalize="words"
-            type="search"
-            placeholder="Type a location to search"
-            onChange={updateCity}
-            incremental="true"
-          />
-          <button type="submit"> Search </button>
-        </form>
-        <div> {weatherData} </div>
+      <div>
+        {form}
+        {weatherData}
       </div>
     );
   } else {
-    return (
-      <form autoComplete="off" onSubmit={handleSubmit}>
-        <input
-          id="formInput"
-          autoCapitalize="words"
-          type="search"
-          placeholder="Type a location to search"
-          onChange={updateCity}
-          incremental="true"
-        />
-        <button type="submit"> Search </button>
-      </form>
-    );
+    return <div>{form}</div>;
   }
 }
